@@ -1,8 +1,7 @@
-const actions = {
-   ADD: 'todos/add',
-   DELETE: 'todos/delete',
-   TOGGLE_COMPLETED: 'todos/toggleCompleted',
-   CHANGE_FILTER: 'todos/changeFilter',
+const types = {
+   ADD: 'contact/add',
+   DELETE: 'contact/delete',
+   CHANGE_FILTER: 'contact/changeFilter',
 };
 
-export default actions;
+export default types;

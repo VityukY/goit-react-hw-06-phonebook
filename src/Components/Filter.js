@@ -1,9 +1,28 @@
-const Filter = ({ value, onChange }) => {
+import { connect } from 'react-redux';
+import action from '../redux/actions';
+
+const Filter = ({ value, changeFilter }) => {
    return (
       <label className="phonebook__filter">
          Find contacts by name
-         <input type="text" value={value} onChange={onChange} />
+         <input
+            type="text"
+            value={value}
+            onChange={e => changeFilter(e.currentTarget.value)}
+         />
       </label>
    );
 };
-export default Filter;
+
+const mapStateToProps = state => {
+   return {
+      value: state.filter,
+   };
+};
+
+const mapDispatchToProps = dispatch => {
+   return {
+      changeFilter: value => dispatch(action.changeFilter(value)),
+   };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Filter);

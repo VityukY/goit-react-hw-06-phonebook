@@ -1,4 +1,8 @@
 import { Component } from 'react';
+import { connect } from 'react-redux';
+
+import action from '../redux/actions';
+import shortid from 'shortid';
 
 class Form extends Component {
    state = {
@@ -6,23 +10,39 @@ class Form extends Component {
       number: '',
    };
 
-   addContact = e => {
+   updateContacts = e => {
       e.preventDefault();
-      this.props.onSubmit(this.state);
+      const { name, number } = this.state;
+      if (this.checkDuplicates(name)) {
+         alert(`${name} уже в списке`);
+         return;
+      }
+      const newContact = {
+         name,
+         number,
+         id: shortid.generate(),
+      };
+      this.props.addContact(newContact);
       this.reset();
+   };
+
+   checkDuplicates = name => {
+      const currentContactsName = this.props.contacts.map(
+         contact => contact.name,
+      );
+      return currentContactsName.includes(name);
    };
 
    changeHadler = e => {
       this.setState({ [e.currentTarget.name]: e.currentTarget.value });
    };
-
    reset() {
       this.setState({ name: '', number: '' });
    }
 
    render() {
       return (
-         <form onSubmit={this.addContact} className="phonebook_form">
+         <form onSubmit={this.updateContacts} className="phonebook_form">
             <div className="phonebook__inputarea">
                <label>
                   <h2>Name</h2>
@@ -58,4 +78,16 @@ class Form extends Component {
    }
 }
 
-export default Form;
+const mapStateToProps = state => {
+   return {
+      contacts: state.contacts,
+   };
+};
+
+const mapDispatchToProps = dispatch => {
+   return {
+      addContact: newContact => dispatch(action.addContact(newContact)),
+   };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form);

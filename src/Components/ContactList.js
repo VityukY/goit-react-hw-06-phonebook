@@ -1,13 +1,20 @@
-const ContactList = ({ ContactList, onClick }) => {
-   /*return */
+import { connect } from 'react-redux';
+import action from '../redux/actions';
+const ContactList = ({ contacts, filter, deleteContact }) => {
+   const getfiltredContacts = () => {
+      const normalizeFilter = filter.toLowerCase();
+      return contacts.filter(contact =>
+         contact.name.toLowerCase().includes(normalizeFilter),
+      );
+   };
    return (
       <ul className="phonebook__list">
-         {ContactList.map(contact => (
+         {getfiltredContacts().map(contact => (
             <li key={contact.id} className="pnonebook__listItem">
                <p>
                   {contact.name} : {contact.number}
                </p>
-               <button type="button" onClick={() => onClick(contact.id)}>
+               <button type="button" onClick={() => deleteContact(contact.id)}>
                   Delete contact
                </button>
             </li>
@@ -15,4 +22,18 @@ const ContactList = ({ ContactList, onClick }) => {
       </ul>
    );
 };
-export default ContactList;
+
+const mapStateToProps = state => {
+   return {
+      contacts: state.contacts,
+      filter: state.filter,
+   };
+};
+
+const mapDispatchToProps = dispatch => {
+   return {
+      deleteContact: id => dispatch(action.deleteContact(id)),
+   };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContactList);

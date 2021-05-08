@@ -80,7 +80,7 @@ class Form extends Component {
 
 const mapStateToProps = state => {
    return {
-      contacts: state.contacts,
+      contacts: state.phonebook.contacts.contacts,
    };
 };
 

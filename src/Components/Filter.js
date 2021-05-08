@@ -16,7 +16,7 @@ const Filter = ({ value, changeFilter }) => {
 
 const mapStateToProps = state => {
    return {
-      value: state.filter,
+      value: state.phonebook.filter.filter,
    };
 };
 

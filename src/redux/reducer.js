@@ -1,9 +1,7 @@
-import { composeWithDevTools } from 'redux-devtools-extension';
-import { createStore, applyMiddleware, combineReducers } from 'redux';
-/*import types from './action-types';*/
-import complexContactsReducer from './reducer';
-/*
-const reducer = (
+import { combineReducers } from 'redux';
+import types from './action-types';
+
+const contactsReducer = (
    state = {
       contacts: [
          { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
@@ -11,7 +9,6 @@ const reducer = (
          { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
          { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
       ],
-      filter: '',
    },
 
    { type, payload },
@@ -19,19 +16,23 @@ const reducer = (
    switch (type) {
       case types.ADD:
          return {
-            ...state,
             contacts: [...state.contacts, payload],
          };
 
       case types.DELETE:
          return {
-            ...state,
             contacts: state.contacts.filter(contact => contact.id !== payload),
          };
 
+      default:
+         return state;
+   }
+};
+
+const filterReducer = (state = { filter: '' }, { type, payload }) => {
+   switch (type) {
       case types.CHANGE_FILTER:
          return {
-            ...state,
             filter: payload,
          };
       default:
@@ -39,13 +40,9 @@ const reducer = (
    }
 };
 
-const store = createStore(reducer, composeWithDevTools(applyMiddleware()));
-
-*/
-
-const rootReducer = combineReducers({
-   phonebook: complexContactsReducer,
+const complexContactsReducer = combineReducers({
+   contacts: contactsReducer,
+   filter: filterReducer,
 });
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware()));
 
-export default store;
+export default complexContactsReducer;

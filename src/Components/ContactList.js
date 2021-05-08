@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import action from '../redux/actions';
+
 const ContactList = ({ contacts, filter, deleteContact }) => {
    const getfiltredContacts = () => {
       const normalizeFilter = filter.toLowerCase();
@@ -25,8 +26,8 @@ const ContactList = ({ contacts, filter, deleteContact }) => {
 
 const mapStateToProps = state => {
    return {
-      contacts: state.contacts,
-      filter: state.filter,
+      contacts: state.phonebook.contacts.contacts,
+      filter: state.phonebook.filter.filter,
    };
 };
 

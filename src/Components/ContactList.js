@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import action from '../redux/actions';
+import * as action from '../redux/actions';
 
 const ContactList = ({ contacts, filter, deleteContact }) => {
    const getfiltredContacts = () => {
@@ -26,8 +26,8 @@ const ContactList = ({ contacts, filter, deleteContact }) => {
 
 const mapStateToProps = state => {
    return {
-      contacts: state.phonebook.contacts.contacts,
-      filter: state.phonebook.filter.filter,
+      contacts: state.phonebook.contacts,
+      filter: state.phonebook.filter,
    };
 };
 

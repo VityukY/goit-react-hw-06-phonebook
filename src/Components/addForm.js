@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
 
-import action from '../redux/actions';
+import * as action from '../redux/actions';
 import shortid from 'shortid';
 
 class Form extends Component {
@@ -80,7 +80,7 @@ class Form extends Component {
 
 const mapStateToProps = state => {
    return {
-      contacts: state.phonebook.contacts.contacts,
+      contacts: state.phonebook.contacts,
    };
 };
 

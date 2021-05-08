@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import action from '../redux/actions';
+import * as action from '../redux/actions';
 
 const Filter = ({ value, changeFilter }) => {
    return (
@@ -16,7 +16,7 @@ const Filter = ({ value, changeFilter }) => {
 
 const mapStateToProps = state => {
    return {
-      value: state.phonebook.filter.filter,
+      value: state.phonebook.filter,
    };
 };
 
